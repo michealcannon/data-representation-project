@@ -1,8 +1,9 @@
 use datarepresentation;
 
 create table books(
-    ISBN int PRIMARY KEY,
+    id int not null auto_increment,
     title varchar(250),
     author varchar(250),
-    price int
+    price int,
+    primary key (id)
     );

@@ -10,13 +10,12 @@ class BookDao:
             password = 'root',
             database ='datarepresentation'
         )
-        #print ("connection made")
+        print ("connection made")
 
     def create(self, book):
         cursor = self.db.cursor()
-        sql = "insert into books (ISBN, title, author, price) values (%s,%s,%s,%s)"
+        sql = "insert into books (title, author, price) values (%s,%s,%s)"
         values = [
-            book['ISBN'],
             book['title'],
             book['author'],
             book['price']
@@ -38,10 +37,10 @@ class BookDao:
 
         return returnArray
 
-    def findById(self, ISBN):
+    def findById(self, id):
         cursor = self.db.cursor()
-        sql = 'select * from books where ISBN = %s'
-        values = [ ISBN ]
+        sql = 'select * from books where id = %s'
+        values = [ id ]
         cursor.execute(sql, values)
         result = cursor.fetchone()
         return self.convertToDict(result)
@@ -49,22 +48,22 @@ class BookDao:
 
     def update(self, book):
        cursor = self.db.cursor()
-       sql = "update books set title = %s, author = %s, price = %s where ISBN = %s"
+       sql = "update books set title = %s, author = %s, price = %s"
        values = [
            book['title'],
            book['author'],
            book['price'],
-           book['ISBN']
+           
 
        ]
        cursor.execute(sql, values)
        self.db.commit()
        return book
 
-    def delete(self, ISBN):
+    def delete(self, id):
        cursor = self.db.cursor()
-       sql = 'delete from books where ISBN = %s'
-       values = [ISBN]
+       sql = 'delete from books where id = %s'
+       values = [id]
        cursor.execute(sql, values)
        
        return {}
@@ -72,7 +71,7 @@ class BookDao:
 
 
     def convertToDict(self, result):
-        colnames = ['ISBN','title', 'author', 'price']
+        colnames = ['id','title', 'author', 'price']
         book = {}
 
         if result:
