@@ -60,7 +60,7 @@ class StudentDao:
        sql = 'delete from students where id = %s'
        values = [id]
        cursor.execute(sql, values)
-       
+       self.db.commit()
        return {}
 
 
