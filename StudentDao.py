@@ -45,12 +45,6 @@ class StudentDao:
     def update(self, values):
        cursor = self.db.cursor()
        sql = "update students set first_name = %s, surname = %s, grade = %s, absences = %s where id = %s"
-    #    values = [
-    #        student['first_name'],
-    #        student['surname'],
-    #        student['grade'],
-    #        student['absences']
-    #    ]
        cursor.execute(sql, values)
        self.db.commit()
        

@@ -7,8 +7,9 @@ app = Flask(__name__, static_url_path='', static_folder='staticpages')
 @app.route('/')
 def index():
     return "hello"
-#get all
 
+#get all
+# curl http://127.0.0.1:5000/students
 
 @app.route('/students')
 def getAll():
@@ -16,6 +17,7 @@ def getAll():
 
 
 # find By id
+# curl http://127.0.0.1:5000/student/2
 
 @app.route('/students/<int:id>')
 def findById(id):
