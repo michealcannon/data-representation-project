@@ -62,7 +62,8 @@ def update(id):
         currentStudent['grade'] = request.json['grade']
     if 'absences' in request.json:
         currentStudent['absences'] = request.json['absences']
-    studentDao.update(currentStudent)
+    values =(currentStudent['first_name'],currentStudent['surname'],currentStudent['grade'], currentStudent['absences'], currentStudent['id'])
+    studentDao.update(values)
 
     return jsonify(currentStudent)
 
