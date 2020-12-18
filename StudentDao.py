@@ -1,7 +1,7 @@
 import mysql.connector
 from mysql.connector import cursor
 
-class BookDao:
+class StudentDao:
     db = ""
     def __init__(self):
         self.db = mysql.connector.connect(
@@ -12,21 +12,17 @@ class BookDao:
         )
         print ("connection made")
 
-    def create(self, book):
+    def create(self, values):
         cursor = self.db.cursor()
-        sql = "insert into books (title, author, price) values (%s,%s,%s)"
-        values = [
-            book['title'],
-            book['author'],
-            book['price']
-        ]
+        sql = "insert into students (first_name, surname, grade, absences) values (%s,%s,%s, %s)"
+        
         cursor.execute(sql, values)
         self.db.commit()
         return cursor.lastrowid
 
     def getAll(self):
         cursor = self.db.cursor()
-        sql = 'select * from books'
+        sql = 'select * from students'
         cursor.execute(sql)
         results = cursor.fetchall()
         returnArray = []
@@ -39,30 +35,29 @@ class BookDao:
 
     def findById(self, id):
         cursor = self.db.cursor()
-        sql = 'select * from books where id = %s'
+        sql = 'select * from students where id = %s'
         values = [ id ]
         cursor.execute(sql, values)
         result = cursor.fetchone()
         return self.convertToDict(result)
         
 
-    def update(self, book):
+    def update(self, student):
        cursor = self.db.cursor()
-       sql = "update books set title = %s, author = %s, price = %s"
+       sql = "update students set first_name = %s, surname = %s, grade = %s, absences = %s"
        values = [
-           book['title'],
-           book['author'],
-           book['price'],
-           
-
+           student['first_name'],
+           student['surname'],
+           student['grade'],
+           student['absences']
        ]
        cursor.execute(sql, values)
        self.db.commit()
-       return book
+       return student
 
     def delete(self, id):
        cursor = self.db.cursor()
-       sql = 'delete from books where id = %s'
+       sql = 'delete from students where id = %s'
        values = [id]
        cursor.execute(sql, values)
        
@@ -71,13 +66,13 @@ class BookDao:
 
 
     def convertToDict(self, result):
-        colnames = ['id','title', 'author', 'price']
-        book = {}
+        colnames = ['id','first_name', 'surname', 'grade', 'absences']
+        student = {}
 
         if result:
             for i , colName in enumerate(colnames):
                 value = result[i]
-                book[colName] = value
-        return book
+                student[colName] = value
+        return student
 
-bookDao = BookDao()
+studentDao = StudentDao()

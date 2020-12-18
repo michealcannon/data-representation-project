@@ -1,9 +1,10 @@
 use datarepresentation;
 
-create table books(
+create table students(
     id int not null auto_increment,
-    title varchar(250),
-    author varchar(250),
-    price int,
+    first_name varchar(250),
+    surname varchar(250),
+    grade int,
+    absences int,
     primary key (id)
     );

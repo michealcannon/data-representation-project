@@ -1,5 +1,5 @@
 from flask import Flask, url_for, request, redirect, abort, jsonify
-from BookDao import bookDao
+from StudentDao import studentDao
 
 app = Flask(__name__, static_url_path='', static_folder='staticpages')
 
@@ -10,66 +10,69 @@ def index():
 #get all
 
 
-@app.route('/books')
+@app.route('/students')
 def getAll():
-    return jsonify(bookDao.getAll())
+    return jsonify(studentDao.getAll())
 
 
 # find By id
 
-@app.route('/books/<int:id>')
+@app.route('/students/<int:id>')
 def findById(id):
-    return jsonify(bookDao.findById(id))
+    return jsonify(studentDao.findById(id))
 
 # create
-# curl -X POST -d "{\"title\":\"test\", \"author\":\"some guy\", \"price\":123}" http://127.0.0.1:5000/books
+# curl -X POST -d "{\"first_name\":\"john\", \"surname\":\"doe\", \"grade\":70, \"absences\":2}" -H Content-Type:application/json http://127.0.0.1:5000/students
 
-
-@app.route('/books', methods=['POST'])
+@app.route('/students', methods=['POST'])
 def create():
-    global nextId
+    
     if not request.json:
         abort(400)
 
-    book = {
-        "id": nextId,
-        "title": request.json["title"],
-        "author": request.json["author"],
-        "price": request.json["price"]
+    student = {
+        
+        "first_name": request.json["first_name"],
+        "surname": request.json["surname"],
+        "grade": request.json["grade"],
+        "absences": request.json["absences"]
     }
-    nextId += 1
-    return jsonify(bookDao.create(book))
-
-    return "served by Create "
+    values =(student['first_name'],student['surname'],student['grade'], student['absences'])
+    newId = studentDao.create(values)
+    student['id'] = newId
+    return jsonify(student)
+    
 
 #update
-# curl -X PUT -d "{\"Title\":\"new Title\", \"Price\":999}" -H "content-type:application/json" http://127.0.0.1:5000/books/1
+# curl -X PUT -d "{\"first_name\":\"Jane\", \"grade\":80}" -H "content-type:application/json" http://127.0.0.1:5000/students/1
 
 
-@app.route('/books/<int:id>', methods=['PUT'])
+@app.route('/students/<int:id>', methods=['PUT'])
 def update(id):
-    foundBook=bookDao.findById(id)
-    print (foundBook)
-    if foundBook == {}:
+    foundStudent=studentDao.findById(id)
+    print (foundStudent)
+    if foundStudent == {}:
         return jsonify({}), 404
-    currentBook = foundBook
-    if 'title' in request.json:
-        currentBook['title'] = request.json['title']
-    if 'author' in request.json:
-        currentBook['author'] = request.json['author']
-    if 'price' in request.json:
-        currentBook['price'] = request.json['price']
-    bookDao.update(currentBook)
+    currentStudent = foundStudent
+    if 'first_name' in request.json:
+        currentStudent['first_name'] = request.json['first_name']
+    if 'surname' in request.json:
+        currentStudent['surname'] = request.json['surname']
+    if 'grade' in request.json:
+        currentStudent['grade'] = request.json['grade']
+    if 'absences' in request.json:
+        currentStudent['absences'] = request.json['absences']
+    studentDao.update(currentStudent)
 
-    return jsonify(currentBook)
+    return jsonify(currentStudent)
 
 #delete
-# curl -X DELETE http://127.0.0.1:5000/books/1
+# curl -X DELETE http://127.0.0.1:5000/students/1
 
 
-@app.route('/books/<int:id>', methods=['DELETE'])
+@app.route('/students/<int:id>', methods=['DELETE'])
 def delete(id):
-    bookDao.delete(id)
+    studentDao.delete(id)
 
     return jsonify({"done": True})
 
