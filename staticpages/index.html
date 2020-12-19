@@ -1,0 +1,51 @@
+<html>
+    <head>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+                integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    </head>
+    <body>
+        <div id="create-update" style="display:none">
+            <h2>create-edit</h2>
+            <table id="createUpdateForm">
+                <tr>
+                    <td>id</td>
+                    <td><input type="text" name="id" id="idInput"></td>
+                </tr>
+                <tr>
+                    <td>first name</td>
+                    <td><input type="text" name="first_name"></td>
+                </tr>
+                <tr>
+                    <td>surname</td>
+                    <td><input type="text" name="surname"></td>
+                </tr>
+                <tr>    
+                    <td>grade</td>
+                    <td><input type="int" name="grade"></td>
+                </tr>
+                <tr>    
+                    <td>absences</td>
+                    <td><input type="int" name="absences"></td>
+                </tr>
+                <tr>
+                    <td></td><td>
+                        <button id="create-button" onclick="doCreate()">Create</button>     
+                        <button id="update-button" onclick="doUpdate()">update</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="display">
+            <h2>Students</h2>
+            <button onClick="showCreate()">Create</button>
+            <table id="studentTable" class="table">
+                <tr>
+                    <th>id</th><th>first name</th><th>surname</th><th>grade</th><th>absences</th><th></th><th></th>
+                </tr>
+                
+            </table>
+
+        </div>
