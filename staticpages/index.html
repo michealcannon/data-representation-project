@@ -51,7 +51,7 @@
         </div>
         <script>
 
-function showCreate(){
+            function showCreate(){
                 document.getElementById('display').style.display = "none"
                 document.getElementById('update-button').style.display = "none"
                 document.getElementById('create-button').style.display = "block"
@@ -70,6 +70,48 @@ function showCreate(){
 
             }
 
+            function doCreate(){
+                console.log("in doCreate")
+                book= getStudentFromForm()
+                console.log(student)
+                $.ajax({
+                    url:"/students",
+                    data:JSON.stringify(student),
+                    method:"POST",
+                    dataType:"JSON",
+                    contentType: "application/json; charset=utf-8",
+                    success:function(result){
+                        console.log(result) 
+                        addStudentToTable(student)
+                        showDisplay()
+                        clearForm()
+
+                    },
+                    error:function(xhr,status,error){
+                        console.log("error"+error)
+                    }
+                })
+               
+            }
+
+            function getStudentFromForm(){
+                var form = document.getElementById('createUpdateForm')
+
+                var student = {}
+                student.id = form.querySelector('input[name="id"]').value
+                student.first_name = form.querySelector('input[name="first_name"]').value
+                student.surname = form.querySelector('input[name="surname"]').value
+                student.grade = form.querySelector('input[name="grade"]').value
+                //console.log(student)
+                 return student
+            }
+
+            function showDisplay() {
+                    document.getElementById('display').style.display = "block"
+                    document.getElementById('create-update').style.display = "none"
+
+                }
+                
             function populateTable(){
                 //ajax getAll
                $.ajax({
