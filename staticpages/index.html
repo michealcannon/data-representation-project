@@ -49,3 +49,49 @@
             </table>
 
         </div>
+        <script>
+            function populateTable(){
+                //ajax getAll
+               $.ajax({
+                   url:'http://127.0.0.1:5000/students',
+                   method:'GET',
+                   datatype:'JSON',
+                   success:function(results){
+                        for (student of results){
+                             addStudentToTable(student)
+                        }
+                   },
+                   error:function (xhr,status,error){
+                       console.log ("error "+error +" code:"+status)
+                   }
+
+               })
+               
+            }
+            function addStudentToTable(student){
+                //console.log("working so far")
+                tableElem = document.getElementById("studentTable")
+                rowElem = tableElem.insertRow(-1)
+                rowElem.setAttribute("id", student.id)
+                cell1 = rowElem.insertCell(0)
+                cell1.innerHTML = student.id
+                cell2 = rowElem.insertCell(1)
+                cell2.innerHTML = student.first_name
+                cell3 = rowElem.insertCell(2)
+                cell3.innerHTML = student.surname
+                cell4 = rowElem.insertCell(3)
+                cell4.innerHTML = student.grade
+                cell5 = rowElem.insertCell(4)
+                cell5.innerHTML = student.absences
+                cell6 = rowElem.insertCell(5)
+                cell6.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+                cell7 = rowElem.insertCell(6)
+                cell7.innerHTML = '<button onclick="doDelete(this)">delete</button>'
+                 }
+            populateTable()
+        </script>
+    </body>
+
+
+</html>
+
