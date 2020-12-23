@@ -8,3 +8,10 @@ create table students(
     absences int,
     primary key (id)
     );
+
+create table registrations(
+    id int not null auto_increment,
+    email varchar(250),
+    password varchar(250),
+    primary key (id)
+    );
