@@ -14,7 +14,7 @@
 
                 <tr>
                     <td>fstudent id</td>
-                    <td><input type="text" name="id"></td>
+                    <td><input type="text" name="id" value = "auto"  disabled = true></td>
                 </tr>
                 
                 <tr>
@@ -113,7 +113,7 @@
             function doCreate(){
                 console.log("in doCreate")
                 student= getStudentFromForm()
-                console.log(student)
+                
                 $.ajax({
                     url:"/students",
                     data:JSON.stringify(student),
@@ -187,7 +187,7 @@
                 rowElement.cells[3].firstChild.textContent = student.grade
                 rowElement.cells[4].firstChild.textContent = student.absences
 
-                //console.log("updating table")
+                
             }
 
             function getStudentFromForm(){
@@ -200,7 +200,7 @@
                 student.surname = form.querySelector('input[name="surname"]').value
                 student.grade = form.querySelector('input[name="grade"]').value
                 student.absences = form.querySelector('input[name="absences"]').value
-                //console.log(student)
+                
                  return student
             }
 
@@ -229,7 +229,7 @@
                
             }
             function addStudentToTable(student){
-                //console.log("working so far")
+                
                 tableElem = document.getElementById("studentTable")
                 rowElem = tableElem.insertRow(-1)
                 rowElem.setAttribute("id", student.id)
