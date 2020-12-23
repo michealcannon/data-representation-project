@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> login screen  </title>
+<style>
+
+
+/* styles email input */
+input[type=email] {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px;
+  margin-left: 48px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* styles password input */
+input[type=password] {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px;
+  margin-left:23px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+</style>
+
+<script src="https://d3js.org/d3.v5.min.js"></script>
+
+</head>
+
+<body>
+
+<div class = "container">  <!--container for log-in screen-->
+	<div id = "order"> <!-- container for log-in form-->
+		<div align = "center"> <H2>Log-in</H2> <!-- title -->
+		
+		<!-- create form -->
+		<form>
+			<label for="email"><b>email</b></label> <!--create label for email input-->
+			<input type="email" placeholder = "Enter email" name="email"  id = "email" required>	<br>  <!-- create email input, set so that text field may not be empty-->
+			<label for="psw"><b>password</b></label>  	<!-- create label for password field-->
+			<!-- create password input, set so that text field may not be empty; set "enter password" as placeholder-->
+			<input type="password" placeholder="Enter Password" id = "password" name="psw" required><br><br><br>
+			<div align = "center"> <H2>Register</H2>
+			<!-- create text area input, set so that text field may not be empty;-->
+			<textarea rows = "4" id = "textarea"  required></textarea><br>
+			<button type="submit"id = "button2" onclick = "login()">Submit</button> <!-- create button to submit form; clicking calls login function-->
+		</form>
+		
+	</div>
+	
+</div>
+</body>
+<script>
+
+
+
+
+
+</html>
