@@ -8,6 +8,21 @@ app = Flask(__name__, static_url_path='', static_folder='staticpages')
 def index():
     return "hello"
 
+@app.route('/register/', methods=['GET', 'POST'])
+def register():
+    # Output message if something goes wrong...
+    msg = ''
+    # Check if "username", "password" and "email" POST requests exist (user submitted form)
+    if request.method == 'POST' and 'email' in request.form and 'password' in request.form:
+        # Create variables for easy access
+        email = request.form['email']
+        password = request.form['password']
+        registration = registrationsDAO.fetchone()
+        
+        registrationsDao.create()
+    
+    return render_template('register.html', msg=msg)
+
 #get all
 # curl http://127.0.0.1:5000/students
 
