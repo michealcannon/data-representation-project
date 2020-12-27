@@ -1,5 +1,5 @@
-from flask import Flask, url_for, request, redirect, abort, jsonify
-from StudentDao import studentDao
+from flask import Flask, jsonify, request, abort, render_template, redirect, url_for, session, flash
+from RegistrationsDao import registrationsDao
 
 app = Flask(__name__, static_url_path='', static_folder='staticpages')
 
@@ -8,20 +8,27 @@ app = Flask(__name__, static_url_path='', static_folder='staticpages')
 def index():
     return "hello"
 
-@app.route('/register/', methods=['GET', 'POST'])
-def register():
-    # Output message if something goes wrong...
-    msg = ''
-    # Check if "username", "password" and "email" POST requests exist (user submitted form)
-    if request.method == 'POST' and 'email' in request.form and 'password' in request.form:
-        # Create variables for easy access
-        email = request.form['email']
-        password = request.form['password']
-        registration = registrationsDAO.fetchone()
+@app.route('/register/', methods=['post', 'get'])
+def login():
+    message = ''
+    if request.method == 'POST':
+        username = request.form.get('username')  # access the data inside 
+        password = request.form.get('password')
+        registration = {
+            "username": username,
+            "password": password
+        }
+        values =(registration['username'],registration['password'])
         
-        registrationsDao.create()
-    
-    return render_template('register.html', msg=msg)
+        # if username == 'root' and password == 'pass':
+        #     message = "Correct username and password"
+        # else:
+        #     message = "Wrong username or password"
+        newId = registrationsDao.create(values)
+        registration['id'] = newId
+        return jsonify(registration)
+    return render_template('register.html', message=message)
+
 
 #get all
 # curl http://127.0.0.1:5000/students

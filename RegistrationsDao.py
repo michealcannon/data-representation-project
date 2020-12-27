@@ -1,5 +1,5 @@
 import mysql.connector
-import config as cfg
+import dbconfig as cfg
 class RegistrationsDAO:
     db=""
     def __init__(self): 
@@ -37,4 +37,4 @@ class RegistrationsDAO:
         
         return registration
         
-registrationsDao = RegistrationDAO()
+registrationsDao = RegistrationsDAO()
