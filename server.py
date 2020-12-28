@@ -7,7 +7,7 @@ app = Flask(__name__, static_url_path='', static_folder='staticpages')
 
 @app.route('/')
 def index():
-    return "hello"
+    return render_template('landing_page.html') 
 
 @app.route('/register/', methods=['post', 'get'])
 def register():
