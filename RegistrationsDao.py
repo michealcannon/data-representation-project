@@ -17,6 +17,13 @@ class RegistrationsDAO:
         result = cursor.fetchone()
         return result
 
+    def findOne(self, values):
+        cursor = self.db.cursor()
+        sql="select * from registrations where (email = %s and password = %s)"
+        cursor.execute(sql, values)
+        result = cursor.fetchone()
+        return result
+
 
     def create(self, values):
         cursor = self.db.cursor()
@@ -38,3 +45,5 @@ class RegistrationsDAO:
         return registration
         
 registrationsDao = RegistrationsDAO()
+#x = registrationsDao.findOne(("cannonmicheal@hotmail.com", "Zaytf776"))
+#print(x)

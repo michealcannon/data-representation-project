@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, abort, render_template, redirect, url_for, session, flash
 from RegistrationsDao import registrationsDao
+from StudentDao import studentDao
 
 app = Flask(__name__, static_url_path='', static_folder='staticpages')
 
@@ -9,7 +10,7 @@ def index():
     return "hello"
 
 @app.route('/register/', methods=['post', 'get'])
-def login():
+def register():
     message = ''
     if request.method == 'POST':
         username = request.form.get('username')  # access the data inside 
@@ -29,6 +30,38 @@ def login():
         return jsonify(registration)
     return render_template('register.html', message=message)
 
+@app.route('/login/', methods=['GET', 'POST'])
+def login():
+    # Output message if something goes wrong...
+    msg = ''
+    # return render_template('login.html', msg='')
+        # Check if "username" and "password" POST requests exist (user submitted form)
+    if request.method == 'POST':
+        username = request.form.get('username')  # access the data inside 
+        password = request.form.get('password')
+        # Create variables for easy access
+        login = {
+            "username": username,
+            "password": password
+        }
+        values =(login['username'],login['password'])
+        # return jsonify(values)
+        account= registrationsDao.findOne(values)
+        # return jsonify(account)
+                # If account exists in accounts table in out database
+        if account:
+            return redirect("/index.html")
+            # Create session data, we can access this data in other routes
+            session['loggedin'] = True
+            session['id'] = account['id']
+            session['username'] = account['username']
+            # Redirect to home page
+            print('Logged in successfully!')
+        else:
+            # Account doesnt exist or username/password incorrect
+            msg = 'Incorrect username/password!'
+    # Show the login form with message (if any)
+    return render_template('login.html', msg=msg)
 
 #get all
 # curl http://127.0.0.1:5000/students
