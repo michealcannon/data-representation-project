@@ -55,6 +55,7 @@ def login():
             # Redirect to home page
             print('Logged in successfully!')
         else:
+            
             # Account doesnt exist or username/password incorrect  
             # Show the login form with message 
             return render_template('login.html', error = error)
