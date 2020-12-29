@@ -33,7 +33,7 @@ def register():
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
     # Output message if something goes wrong...
-    msg = ''
+    error = None
     # return render_template('login.html', msg='')
         # Check if "username" and "password" POST requests exist (user submitted form)
     if request.method == 'POST':
@@ -59,9 +59,10 @@ def login():
             print('Logged in successfully!')
         else:
             # Account doesnt exist or username/password incorrect
-            msg = 'Incorrect username/password!'
+            
     # Show the login form with message (if any)
-    return render_template('login.html', msg=msg)
+            return render_template('login.html', error = error)
+            
 
 #get all
 # curl http://127.0.0.1:5000/students

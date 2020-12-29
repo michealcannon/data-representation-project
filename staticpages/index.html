@@ -1,13 +1,16 @@
 <html>
 
     <head>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-            
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-                integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     </head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+       
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        
     <body>
+
+        <!--create table to create/update data- -->
         <div id="create-update" style="display:none">
             <h2>create-edit</h2>
             <table id="createUpdateForm">
@@ -41,6 +44,7 @@
                 </tr>
             </table>
         </div>
+        <!--table headings-->
         <div id="display">
             <h2>Students</h2>
             <button onClick="showCreate()">Create</button>
@@ -72,7 +76,7 @@
                 document.getElementById('create-update').style.display = "block"
 
             }
-
+            // read student details from form
             function readStudentFromRow(rowElement){
                 student = {}
                 student.id = rowElement.getAttribute("id");
@@ -84,6 +88,7 @@
                 return student
                 
             }
+            // populates from with student details
             function populateForm(student){
                 var form = document.getElementById('createUpdateForm')
 
@@ -96,7 +101,7 @@
                 form.querySelector('input[name="grade"]').value = student.grade      
                 form.querySelector('input[name="absences"]').value = student.absences
             }
-
+            // removes student details from fields
             function clearForm() {
                     var form = document.getElementById('createUpdateForm')
 
@@ -109,9 +114,9 @@
                     form.querySelector('input[name="grade"]').value = ''
                     form.querySelector('input[name="absences"]').value = ''
                 }
-
+            //gets details of student entered into form
             function doCreate(){
-                console.log("in doCreate")
+                
                 student= getStudentFromForm()
                 
                 $.ajax({
@@ -133,7 +138,7 @@
                 })
                
             }
-
+            // updating the server with student details
             function doUpdate(){
                 student = getStudentFromForm()
                 updateServer(student)
@@ -160,7 +165,7 @@
                     }
                 })
             }
-
+            // deleting row from table
             function doDelete(thisElem){
                 var tableElement = document.getElementById('studentTable');
                 var rowElement = thisElem.parentNode.parentNode;
@@ -179,7 +184,7 @@
                 })
                 
             }
-
+            // updating a row from the table
             function updateTableRow(student){
                 rowElement = document.getElementById(student.id)
                 rowElement.cells[1].firstChild.textContent = student.first_name
@@ -203,7 +208,7 @@
                 
                  return student
             }
-
+            // display table
             function showDisplay() {
                     document.getElementById('display').style.display = "block"
                     document.getElementById('create-update').style.display = "none"

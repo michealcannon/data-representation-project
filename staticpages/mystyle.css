@@ -1,0 +1,62 @@
+/* setting font type inside body of page*/
+body {
+    font-family: "Courier New", Courier, monospace;
+    background-color: #DCDCDC;
+  }
+  
+   /* sets font size and spacing inside header of page*/
+  .header{
+    font-size: 40px;
+    word-spacing: 60px;
+    background-color: white;
+  }
+   
+  /* the title element inside the header floats to the left of the page */ 
+  #title{
+    float:left;
+    color:blue;
+    font-size: 100px;
+  }
+   
+  /* text associated with links class inside header gets aligned to the right of the page */
+  .links {
+    text-align: right;
+  }
+  
+  /* styles unvisited links */
+  a:link{
+    color:black;
+    text-decoration:none;
+  }
+  
+  /* makes links red when hovering over them */
+  a:hover {
+    color: red;
+  }
+   
+  /* container holding image and text */
+  .content {
+    position: relative;  /* any positioning will be related to where it would be in normal flow */
+  }
+  
+   /*  styles text within the image */
+  .text-block {
+    position: absolute;   /* positions shown are relative to its parent*/
+    bottom: 20px;
+    left: 20px;
+    color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 40px;
+  }
+  
+  /* styles rectangles in chart black when hovered over */
+  rect:hover{fill:black;}
+  
+  .buttons {
+      background-color: green;
+      color: white;
+      cursor:pointer;
+      border: none;
+  }
+  
