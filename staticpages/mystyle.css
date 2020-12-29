@@ -6,17 +6,11 @@ body {
   
    /* sets font size and spacing inside header of page*/
   .header{
-    font-size: 40px;
+    font-size: 20px;
     word-spacing: 60px;
     background-color: white;
   }
    
-  /* the title element inside the header floats to the left of the page */ 
-  #title{
-    float:left;
-    color:blue;
-    font-size: 100px;
-  }
    
   /* text associated with links class inside header gets aligned to the right of the page */
   .links {
@@ -50,8 +44,6 @@ body {
     font-size: 40px;
   }
   
-  /* styles rectangles in chart black when hovered over */
-  rect:hover{fill:black;}
   
   .buttons {
       background-color: green;

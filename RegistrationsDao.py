@@ -10,6 +10,7 @@ class RegistrationsDAO:
         database=cfg.mysql['database']
         )
     
+    # return last entry from database
     def getOne(self):
         cursor = self.db.cursor()
         sql="select * from registrations"
@@ -17,6 +18,7 @@ class RegistrationsDAO:
         result = cursor.fetchone()
         return result
 
+    # return account that matches values entered 
     def findOne(self, values):
         cursor = self.db.cursor()
         sql="select * from registrations where (email = %s and password = %s)"
@@ -24,7 +26,7 @@ class RegistrationsDAO:
         result = cursor.fetchone()
         return result
 
-
+    # create account from values passed
     def create(self, values):
         cursor = self.db.cursor()
         sql="insert into registrations (email, password) values (%s,%s)"
@@ -45,5 +47,3 @@ class RegistrationsDAO:
         return registration
         
 registrationsDao = RegistrationsDAO()
-#x = registrationsDao.findOne(("cannonmicheal@hotmail.com", "Zaytf776"))
-#print(x)

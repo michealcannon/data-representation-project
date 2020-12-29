@@ -13,6 +13,7 @@ class StudentDao:
         )
         print ("connection made")
 
+    # create student from values inputted
     def create(self, values):
         cursor = self.db.cursor()
         sql = "insert into students (first_name, surname, grade, absences) values (%s,%s,%s, %s)"
@@ -21,6 +22,7 @@ class StudentDao:
         self.db.commit()
         return cursor.lastrowid
 
+    # return all students from database
     def getAll(self):
         cursor = self.db.cursor()
         sql = 'select * from students'
@@ -34,6 +36,7 @@ class StudentDao:
 
         return returnArray
 
+    # find student using student id
     def findById(self, id):
         cursor = self.db.cursor()
         sql = 'select * from students where id = %s'
@@ -42,14 +45,14 @@ class StudentDao:
         result = cursor.fetchone()
         return self.convertToDict(result)
         
-
+    # update student info
     def update(self, values):
        cursor = self.db.cursor()
        sql = "update students set first_name = %s, surname = %s, grade = %s, absences = %s where id = %s"
        cursor.execute(sql, values)
        self.db.commit()
        
-
+    # delete student using their id
     def delete(self, id):
        cursor = self.db.cursor()
        sql = 'delete from students where id = %s'

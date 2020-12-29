@@ -21,20 +21,18 @@ def register():
         }
         values =(registration['username'],registration['password'])
         
-        # if username == 'root' and password == 'pass':
-        #     message = "Correct username and password"
-        # else:
-        #     message = "Wrong username or password"
+        
         newId = registrationsDao.create(values)
         registration['id'] = newId
-        return jsonify(registration)
+        
     return render_template('register.html', message=message)
+    
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
-    # Output message if something goes wrong...
+    
     error = None
-    # return render_template('login.html', msg='')
+    
         # Check if "username" and "password" POST requests exist (user submitted form)
     if request.method == 'POST':
         username = request.form.get('username')  # access the data inside 
@@ -45,10 +43,9 @@ def login():
             "password": password
         }
         values =(login['username'],login['password'])
-        # return jsonify(values)
-        account= registrationsDao.findOne(values)
-        # return jsonify(account)
-                # If account exists in accounts table in out database
+        account= registrationsDao.findOne(values) 
+        # use values from login form to check if account exists
+                
         if account:
             return redirect("/index.html")
             # Create session data, we can access this data in other routes
@@ -58,30 +55,22 @@ def login():
             # Redirect to home page
             print('Logged in successfully!')
         else:
-            # Account doesnt exist or username/password incorrect
-            
-    # Show the login form with message (if any)
+            # Account doesnt exist or username/password incorrect  
+            # Show the login form with message 
             return render_template('login.html', error = error)
             
 
-#get all
-# curl http://127.0.0.1:5000/students
 
 @app.route('/students')
 def getAll():
     return jsonify(studentDao.getAll())
 
 
-# find By id
-# curl http://127.0.0.1:5000/student/2
-
 @app.route('/students/<int:id>')
 def findById(id):
     return jsonify(studentDao.findById(id))
 
-# create
-# curl -X POST -d "{\"first_name\":\"john\", \"surname\":\"doe\", \"grade\":70, \"absences\":2}" -H Content-Type:application/json http://127.0.0.1:5000/students
-
+# create new student
 @app.route('/students', methods=['POST'])
 def create():
     
@@ -101,9 +90,7 @@ def create():
     return jsonify(student)
     
 
-#update
-# curl -X PUT -d "{\"first_name\":\"Jane\", \"grade\":80}" -H "content-type:application/json" http://127.0.0.1:5000/students/1
-
+#update a students details
 
 @app.route('/students/<int:id>', methods=['PUT'])
 def update(id):
@@ -125,9 +112,7 @@ def update(id):
 
     return jsonify(currentStudent)
 
-#delete
-# curl -X DELETE http://127.0.0.1:5000/students/1
-
+# delete student from database
 
 @app.route('/students/<int:id>', methods=['DELETE'])
 def delete(id):
